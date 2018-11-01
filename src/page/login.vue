@@ -66,7 +66,7 @@
                         // params.append('password',this.loginForm.password)
 
                         login(params).then(res=>{
-                            if (res.state == 1) {
+                            if (res.data.state == 1) {
                                 this.$message({
                                     type: 'success',
                                     message: '登录成功'

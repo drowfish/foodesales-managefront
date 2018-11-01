@@ -74,7 +74,7 @@
         components: {
             headTop,
         },
-        created(){
+        mounted(){
             this.getUsers();
         },
         methods: {
@@ -102,18 +102,19 @@
                 }).then(() => {
                     // let params = new FormData()
                     // params.append('id',this.tableData[val].id)
-                    let params = {
-                        id:this.tableData[val].id
-                    }
+
+                    let params = new FormData()
+                    params.append('id',this.tableData[val].id)
                     removeUser(params).then(res=>{
-                        if(res.state == 1){
+                        if(res.data.state == 1){
+                            this.getUsers()
                             this.$message({
                                 type: 'success',
                                 message: '删除成功!'
                             });
                         }else{
                             this.$message({
-                                type: 'fail',
+                                type: 'error',
                                 message: '删除失败!'
                             });
                         }
@@ -131,11 +132,13 @@
                 this.getUsers()
             },
             async getUsers() {
-                const res = await getUserList({currentPage: this.currentPage, limit: this.limit});
-                console.log(res)
-                this.count = res.data.total
+                const params = new FormData()
+                params.append('currentPage', this.currentPage)
+                params.append('limit', this.limit)
+                const res = await getUserList(params);
+                this.count = res.data.data.total
                 this.tableData = [];
-                res.data.list.forEach(item => {
+                res.data.data.list.forEach(item => {
                     const tableData = {}
                     tableData.id = item.id
                     tableData.username = item.username

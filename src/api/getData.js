@@ -13,7 +13,7 @@ export const login = params => fetch('/user/login',params,'POST');
  * 退出
  */
 
-export const signout = () => fetch('/user/signout');
+export const signout = () => fetch('/user/signout','POST');
 
 /**
  * 获取用户信息
@@ -155,20 +155,20 @@ export const getResturantDetail = restaurant_id => fetch('/shopping/restaurant/'
  * 获取食品列表
  */
 
-export const getFoods = data => fetch('/shopping/v2/foods', data);
+export const getFoods = data => fetch('/foods/foodsList', data,'POST');
 
 /**
  * 获取食品数量
  */
 
-export const getFoodsCount = data => fetch('/shopping/v2/foods/count', data);
+// export const getFoodsCount = data => fetch('/shopping/v2/foods/count', data);
 
 
 /**
- * 获取menu列表
+ * 获取食品分类列表
  */
 
-export const getMenu = data => fetch('/shopping/v2/menu', data);
+export const getMenu = data => fetch('/classfication/classficationList', data,'POST');
 
 /**
  * 获取menu详情
@@ -192,7 +192,7 @@ export const deleteFood = food_id => fetch('/shopping/v2/food/' + food_id, {}, '
  * 获取用户列表
  */
 
-export const getUserList = data => fetch('/user/userList', data);
+export const getUserList = data => fetch('/user/userList', data,'POST');
 
 /**
  * 获取用户数量
@@ -204,7 +204,7 @@ export const getUserCount = data => fetch('/users/count', data);
  * 删除用户
  */
 
-export const removeUser = data => fetch('/user/removeUser', data);
+export const removeUser = data => fetch('/user/removeUser', data, 'POST');
 
 /**
  * 获取订单列表
@@ -234,4 +234,4 @@ export const getAddressById = address_id => fetch('/v1/addresse/' + address_id);
  * 获取用户分布信息
  */
 
-export const getUserCity = () => fetch('/v1/user/city/count');
+// export const getUserCity = () => fetch('/v1/user/city/count');
