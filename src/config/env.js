@@ -8,7 +8,7 @@
  */
 let baseUrl = '//127.0.0.1:8080';
 let routerMode = 'hash';
-let baseImgPath;
+let baseImgPath = '//127.0.0.1/';
 
 // if (process.env.NODE_ENV == 'development') {
 // 	baseUrl = '';

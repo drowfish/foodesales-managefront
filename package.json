@@ -21,6 +21,7 @@
     "moment": "^2.22.2",
     "time-formater": "^1.0.1",
     "vue": "^2.2.6",
+    "vue-file-upload": "^0.1.12",
     "vue-quill-editor": "^2.2.1",
     "vue-router": "^2.3.1",
     "vue-simplemde": "^0.3.8",

@@ -180,13 +180,13 @@ export const getMenuById = category_id => fetch('/shopping/v2/menu/' + category_
  * 更新食品信息
  */
 
-export const updateFood = data => fetch('/shopping/v2/updatefood', data, 'POST');
+export const updateFood = data => fetch('/foods/updateFood', data, 'POST');
 
 /**
  * 删除食品
  */
 
-export const deleteFood = food_id => fetch('/shopping/v2/food/' + food_id, {}, 'DELETE');
+export const deleteFood = food_id => fetch('/foods/deleteFood' , food_id, 'POST');
 
 /**
  * 获取用户列表

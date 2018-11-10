@@ -10,7 +10,11 @@ export default async(url = '', data = {}, type = 'GET', method = 'fetch') => {
         console.log(res)
         return res
 	} else if ( type === 'POST') {
-	    const res = await axios.post(url, data)
+	    const res = await axios.post(url, data,{
+            headers:{
+                'Content-type': 'application/json'
+            }
+        })
         console.log(res)
         return res
     }
