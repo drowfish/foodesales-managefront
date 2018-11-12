@@ -9,7 +9,7 @@
 						<el-menu-item index="userList">用户列表</el-menu-item>
 						<el-menu-item index="foodList">食品列表</el-menu-item>
 						<el-menu-item index="orderList">订单列表</el-menu-item>
-						<el-menu-item index="adminList">管理员列表</el-menu-item>
+						<!--<el-menu-item index="adminList">管理员列表</el-menu-item>-->
 					</el-submenu>
 					<el-submenu index="3">
 						<template slot="title"><i class="el-icon-plus"></i>添加数据</template>
@@ -24,7 +24,7 @@
 			</el-col>
 			<el-col :span="20" style="height: 100%;overflow: auto;">
 				<keep-alive>
-				    <router-view></router-view>
+				    <router-view :key="key"></router-view>
 				</keep-alive>
 			</el-col>
 		</el-row>
@@ -36,7 +36,10 @@
 		computed: {
 			defaultActive: function(){
 				return this.$route.path.replace('/', '');
-			}
+			},
+            key() {
+                return this.$route.name !== undefined? this.$route.name +new Date(): this.$route +new Date()
+            }
 		},
     }
 </script>

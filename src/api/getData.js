@@ -80,12 +80,6 @@ export const cityGuess = () => fetch('/v1/cities', {
 });
 
 /**
- * 添加商铺
- */
-
-export const addShop = data => fetch('/shopping/addShop', data, 'POST');
-
-/**
  * 获取搜索地址
  */
 
@@ -95,61 +89,13 @@ export const searchplace = (cityid, value) => fetch('/v1/pois', {
 	keyword: value
 });
 
-/**
- * 获取当前店铺食品种类
- */
-
-export const getCategory = restaurant_id => fetch('/shopping/getcategory/' + restaurant_id);
-
-/**
- * 添加食品种类
- */
-
-export const addCategory = data => fetch('/shopping/addcategory', data, 'POST');
-
 
 /**
  * 添加食品
  */
 
-export const addFood = data => fetch('/shopping/addfood', data, 'POST');
+export const addFood = data => fetch('/foods/addFood', data, 'POST');
 
-
-/**
- * category 种类列表
- */
-
-export const foodCategory = (latitude, longitude) => fetch('/shopping/v2/restaurant/category');
-
-/**
- * 获取餐馆列表
- */
-
-// export const getResturants = data => fetch('/shopping/restaurants', data);
-
-/**
- * 获取餐馆详细信息
- */
-
-export const getResturantDetail = restaurant_id => fetch('/shopping/restaurant/' + restaurant_id);
-
-/**
- * 获取餐馆数量
- */
-
-// export const getResturantsCount = () => fetch('/shopping/restaurants/count');
-
-/**
- * 更新餐馆信息
- */
-
-// export const updateResturant = data => fetch('/shopping/updateshop', data, 'POST');
-
-/**
- * 删除餐馆
- */
-
-// export const deleteResturant = restaurant_id => fetch('/shopping/restaurant/' + restaurant_id, {}, 'DELETE');
 
 /**
  * 获取食品列表
@@ -157,11 +103,6 @@ export const getResturantDetail = restaurant_id => fetch('/shopping/restaurant/'
 
 export const getFoods = data => fetch('/foods/foodsList', data,'POST');
 
-/**
- * 获取食品数量
- */
-
-// export const getFoodsCount = data => fetch('/shopping/v2/foods/count', data);
 
 
 /**
@@ -170,11 +111,6 @@ export const getFoods = data => fetch('/foods/foodsList', data,'POST');
 
 export const getMenu = data => fetch('/classfication/classficationList', data,'POST');
 
-/**
- * 获取menu详情
- */
-
-export const getMenuById = category_id => fetch('/shopping/v2/menu/' + category_id);
 
 /**
  * 更新食品信息

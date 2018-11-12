@@ -10,7 +10,6 @@ const addGoods = r => require.ensure([], () => r(require('@/page/addGoods')), 'a
 const userList = r => require.ensure([], () => r(require('@/page/userList')), 'userList');
 const foodList = r => require.ensure([], () => r(require('@/page/foodList')), 'foodList');
 const orderList = r => require.ensure([], () => r(require('@/page/orderList')), 'orderList');
-const adminList = r => require.ensure([], () => r(require('@/page/adminList')), 'adminList');
 const newMember = r => require.ensure([], () => r(require('@/page/newMember')), 'newMember');
 const adminSet = r => require.ensure([], () => r(require('@/page/adminSet')), 'adminSet');
 const sendMessage = r => require.ensure([], () => r(require('@/page/sendMessage')), 'sendMessage');
@@ -44,10 +43,6 @@ const routes = [
 			path: '/orderList',
 			component: orderList,
 			meta: ['数据管理', '订单列表'],
-		},{
-			path: '/adminList',
-			component: adminList,
-			meta: ['数据管理', '管理员列表'],
 		},{
 			path: '/newMember',
 			component: newMember,

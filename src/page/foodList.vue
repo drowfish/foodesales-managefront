@@ -18,7 +18,7 @@
                                 <span>{{ props.row.id }}</span>
                             </el-form-item>
                             <el-form-item label="食品分类">
-                                <span>{{ props.row.classificatio.name }}</span>
+                                <span>{{ props.row.classification.name }}</span>
                             </el-form-item>
                             <el-form-item label="总销售量">
                                 <span>{{ props.row.salesvolume }}</span>
@@ -101,14 +101,12 @@
 <script>
     import headTop from '../components/headTop'
     import {baseUrl, baseImgPath} from '@/config/env'
-    import {getFoods, getMenu, updateFood, deleteFood, getMenuById} from '@/api/getData'
+    import {getFoods, getMenu, updateFood, deleteFood} from '@/api/getData'
     export default {
         data(){
             return {
                 baseUrl,
                 baseImgPath,
-                restaurant_id: null,
-                city: {},
                 limit: 20,
                 count: 0,
                 tableData: [
@@ -124,10 +122,6 @@
                     {name: '方便面',id: 2},
                     {name: '食品',id: 3}
                 ],
-                selectMenu: {
-                    id: 0,
-                    name: ''
-                },
                 selectIndex: null,
                 expendRow: [],
             }
@@ -208,7 +202,7 @@
             },
             async getSelectItemData(row, type){
                 console.log(row)
-                this.selectTable = row
+                this.selectTable = JSON.parse(JSON.stringify(row))
                 if (type == 'edit') {
                     this.getMenu();
                 }
@@ -260,8 +254,7 @@
                 console.log(res)
                 if (res.state === 1) {
                     this.$message.success(res.message);
-                    this.selectTable.img.url = res.data.url;
-                    this.selectTable.img.id = res.data.id;
+                    this.selectTable.img = res.data;
                 }else{
                     this.$message.error('上传图片失败！');
                 }
@@ -280,17 +273,6 @@
             },
             async updateFood(){
                 this.dialogFormVisible = false;
-                // let params = new FormData()
-                // params.append('id',this.selectTable.id)
-                // params.append('name',this.selectTable.name)
-                // if(this.selectTable.img == null)
-                //     params.append('img',this.selectTable.img)
-                // else
-                //     params.append('img',this.selectTable.img.id)
-                // params.append('price',this.selectTable.price)
-                // params.append('classification',this.selectTable.classification.id)
-                // params.append('stock',this.selectTable.stock)
-                // params.append('salesvolume',this.selectTable.salesvolume)
                 let params= {
                     id: this.selectTable.id,
                     name: this.selectTable.name,
