@@ -146,14 +146,19 @@ export const removeUser = data => fetch('/user/removeUser', data, 'POST');
  * 获取订单列表
  */
 
-export const getOrderList = data => fetch('/bos/orders', data);
+export const getOrderList = data => fetch('/order/getOrderList', data,'POST');
 
 /**
- * 获取订单数量
+ * 获取订单总价格
+ * @param data
  */
+export const getOrderItem = data => fetch('/orderItem/getOrderItem', data,'POST');
 
-export const getOrderCount = data => fetch('/bos/orders/count', data);
-
+/**
+ * 获取订单配送
+ * @param data
+ */
+export const getOrderShipping = data => fetch('/orderShipping/getOrderShipping', data,'POST');
 /**
  * 获取用户信息
  */

@@ -12,7 +12,6 @@ const foodList = r => require.ensure([], () => r(require('@/page/foodList')), 'f
 const orderList = r => require.ensure([], () => r(require('@/page/orderList')), 'orderList');
 const newMember = r => require.ensure([], () => r(require('@/page/newMember')), 'newMember');
 const adminSet = r => require.ensure([], () => r(require('@/page/adminSet')), 'adminSet');
-const sendMessage = r => require.ensure([], () => r(require('@/page/sendMessage')), 'sendMessage');
 
 const routes = [
 	{
@@ -51,10 +50,6 @@ const routes = [
 			path: '/adminSet',
 			component: adminSet,
 			meta: ['设置', '管理员设置'],
-		},{
-			path: '/sendMessage',
-			component: sendMessage,
-			meta: ['设置', '发送通知'],
 		}]
 	}
 ]
