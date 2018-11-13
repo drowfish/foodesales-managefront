@@ -23,7 +23,6 @@
 
 <script>
 	import {login, getAdminInfo} from '@/api/getData'
-	import {mapActions, mapState} from 'vuex'
 
 	export default {
 	    data(){
@@ -45,15 +44,15 @@
 		},
 		mounted(){
 			this.showLogin = true;
-			if (!this.adminInfo.id) {
-    			this.getAdminData()
-    		}
+			// if (!this.adminInfo.id) {
+    		// 	this.getAdminData()
+    		// }
 		},
-		computed: {
-			...mapState(['adminInfo']),
-		},
+		// computed: {
+		// 	...mapState(['adminInfo']),
+		// },
 		methods: {
-			...mapActions(['getAdminData']),
+			// ...mapActions(['getAdminData']),
 			async submitForm(formName) {
 				this.$refs[formName].validate(async (valid) => {
 					if (valid) {
@@ -71,6 +70,7 @@
                                     type: 'success',
                                     message: '登录成功'
                                 });
+                                this.$store.commit('saveAdminInfo', res.data.state)
                                 this.$router.push('manage')
                             }else{
                                 this.$message({
@@ -90,17 +90,17 @@
 				});
 			},
 		},
-		watch: {
-			adminInfo: function (newValue){
-				if (newValue.id) {
-					this.$message({
-                        type: 'success',
-                        message: '检测到您之前登录过，将自动登录'
-                    });
-					this.$router.push('manage')
-				}
-			}
-		}
+		// watch: {
+		// 	adminInfo: function (newValue){
+		// 		if (newValue.id) {
+		// 			this.$message({
+        //                 type: 'success',
+        //                 message: '检测到您之前登录过，将自动登录'
+        //             });
+		// 			this.$router.push('manage')
+		// 		}
+		// 	}
+		// }
 	}
 </script>
 

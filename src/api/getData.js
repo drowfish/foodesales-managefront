@@ -19,7 +19,12 @@ export const signout = () => fetch('/user/signout','POST');
  * 获取用户信息
  */
 
-export const getAdminInfo = () => fetch('/admin/info');
+export const getAdminInfo = () => fetch('/user/getUserInfo','POST');
+
+/**
+ *
+ */
+export const getImgById = data => fetch('/img/getImg', data,'POST');
 
 /**
  * api请求量

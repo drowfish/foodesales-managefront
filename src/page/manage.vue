@@ -2,7 +2,7 @@
 	<div class="manage_page fillcontain">
 		<el-row style="height: 100%;">
 	  		<el-col :span="4"  style="min-height: 100%; background-color: #324057;">
-				<el-menu :default-active="defaultActive" style="min-height: 100%;" theme="dark" router>
+				<el-menu @select="handleSelect" style="min-height: 100%;" theme="dark" router>
 					<el-menu-item index="manage"><i class="el-icon-menu"></i>首页</el-menu-item>
 					<el-submenu index="2">
 						<template slot="title"><i class="el-icon-document"></i>数据管理</template>
@@ -23,9 +23,7 @@
 				</el-menu>
 			</el-col>
 			<el-col :span="20" style="height: 100%;overflow: auto;">
-				<keep-alive>
-				    <router-view :key="key"></router-view>
-				</keep-alive>
+                <router-view></router-view>
 			</el-col>
 		</el-row>
   	</div>
@@ -37,9 +35,9 @@
 			defaultActive: function(){
 				return this.$route.path.replace('/', '');
 			},
-            key() {
-                return this.$route.name !== undefined? this.$route.name +new Date(): this.$route +new Date()
-            }
+            // key() {
+            //     return this.$route.name !== undefined? this.$route.name +new Date(): this.$route +new Date()
+            // }
 		},
     }
 </script>

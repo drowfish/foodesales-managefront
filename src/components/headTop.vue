@@ -7,7 +7,7 @@
 		</el-breadcrumb>
 		<el-dropdown @command="handleCommand" menu-align='start'>
             <!--baseImgPath + adminInfo.avatar-->
-			<img src="../assets/img/avator.jpg" class="avator">
+			<img :src="baseImgPath+imgPath" class="avator">
 			<el-dropdown-menu slot="dropdown">
 				<el-dropdown-item command="home">首页</el-dropdown-item>
 				<el-dropdown-item command="singout">退出</el-dropdown-item>
@@ -17,26 +17,37 @@
 </template>
 
 <script>
-	import {signout} from '@/api/getData'
+	import {signout,getAdminInfo,getImgById} from '@/api/getData'
 	import {baseImgPath} from '@/config/env'
-	import {mapActions, mapState} from 'vuex'
 
     export default {
     	data(){
     		return {
     			baseImgPath,
+                imgPath,
     		}
     	},
     	created(){
-    		if (!this.adminInfo.id) {
-    			this.getAdminData()
-    		}
+    		// if (!this.adminInfo.id) {
+    		// 	this.getAdminData()
+    		// }
     	},
-    	computed: {
-    		...mapState(['adminInfo']),
-    	},
+        mounted(){
+            this.initDate()
+        },
+    	// computed: {
+    	// 	...mapState(['adminInfo']),
+    	// },
 		methods: {
-			...mapActions(['getAdminData']),
+    	    async initDate(){
+    	        let res = await getAdminInfo()
+                let img = await getImgById(res.data.data.headimg)
+                if(img.data.state == 1)
+                    this.imgPath = img.data.data.url
+                else
+                    this.imgPath = ''
+            },
+			// ...mapActions(['getAdminData']),
 			async handleCommand(command) {
 				if (command == 'home') {
 					this.$router.push('/manage');
@@ -47,6 +58,7 @@
 	                        type: 'success',
 	                        message: '退出成功'
 	                    });
+						this.$store.commit('saveAdminInfo',0)
 	                    this.$router.push('/');
 					}else{
 						this.$message({

@@ -1,6 +1,6 @@
 import { baseUrl } from './env'
 import axios from 'axios'
-
+axios.defaults.withCredentials = true;//跨域请求
 export default async(url = '', data = {}, type = 'GET', method = 'fetch') => {
 	type = type.toUpperCase();
 	url = baseUrl + url;

@@ -1,6 +1,6 @@
 import Vue from 'vue'
 import Router from 'vue-router'
-
+import store from '../store'
 Vue.use(Router)
 
 const login = r => require.ensure([], () => r(require('@/page/login')), 'login');
@@ -16,7 +16,8 @@ const adminSet = r => require.ensure([], () => r(require('@/page/adminSet')), 'a
 const routes = [
 	{
 		path: '/',
-		component: login
+		component: login,
+        meta:{requireAuth: true}
 	},
 	{
 		path: '/manage',

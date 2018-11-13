@@ -5,14 +5,12 @@ import {getAdminInfo} from '@/api/getData'
 Vue.use(Vuex)
 
 const state = {
-	adminInfo: {
-		avatar: 'default.jpg'
-	},
+		status: 0
 }
 
 const mutations = {
 	saveAdminInfo(state, adminInfo){
-		state.adminInfo = adminInfo;
+		state.status = adminInfo;
 	}
 }
 
@@ -20,10 +18,11 @@ const actions = {
 	async getAdminData({commit}){
 		try{
 			const res = await getAdminInfo()
-			if (res.status == 1) {
-				commit('saveAdminInfo', res.data);
+            console.log("进入getAdminData："+res.data.state)
+			if (res.data.state == 1) {
+				commit('saveAdminInfo', res.data.state);
 			}else{
-				throw new Error(res)
+				throw new Error(res.data.message)
 			}
 		}catch(err){
 			console.log('您尚未登陆或者session失效')
