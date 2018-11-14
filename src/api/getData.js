@@ -164,11 +164,19 @@ export const getOrderItem = data => fetch('/orderItem/getOrderItem', data,'POST'
  * @param data
  */
 export const getOrderShipping = data => fetch('/orderShipping/getOrderShipping', data,'POST');
+
 /**
  * 获取用户信息
  */
 
 export const getUserInfo = user_id => fetch('/v1/user/' + user_id);
+
+/**
+* 获取用户信息
+*/
+
+export const updateUser = data => fetch('/user/updateUser' ,data,'POST');
+
 
 /**
  * 获取地址信息

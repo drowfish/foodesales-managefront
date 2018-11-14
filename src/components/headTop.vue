@@ -23,8 +23,8 @@
     export default {
     	data(){
     		return {
-    			baseImgPath,
-                imgPath,
+                baseImgPath,
+                imgPath:'',
     		}
     	},
     	created(){
@@ -41,7 +41,9 @@
 		methods: {
     	    async initDate(){
     	        let res = await getAdminInfo()
-                let img = await getImgById(res.data.data.headimg)
+                let params = new FormData()
+                params.append('id',res.data.data.headimg)
+                let img = await getImgById(params)
                 if(img.data.state == 1)
                     this.imgPath = img.data.data.url
                 else

@@ -5,13 +5,10 @@
         <div class="admin_set">
             <ul>
                 <li>
-                    <span>姓名：</span><span>{{adminInfo.user_name}}</span>
+                    <span>姓名：</span><span>{{adminInfo.username}}</span>
                 </li>
                 <li>
-                    <span>注册时间：</span><span>{{adminInfo.create_time}}</span>
-                </li>
-                <li>
-                    <span>管理员权限：</span><span>{{adminInfo.admin}}</span>
+                    <span>注册时间：</span><span>{{parseTime(adminInfo.registeTime)}}</span>
                 </li>
                 <li>
                     <span>管理员 ID：</span><span>{{adminInfo.id}}</span>
@@ -20,14 +17,14 @@
                     <span>更换头像：</span>
                     <el-upload
                       class="avatar-uploader"
-                      :action="baseUrl + '/admin/update/avatar/' + adminInfo.id"
+                      :action="baseUrl + '/img/addImg'"
                       :show-file-list="false"
                       :on-success="uploadImg"
                       :before-upload="beforeImgUpload">
-                      <img v-if="adminInfo.avatar" :src="baseImgPath + adminInfo.avatar" class="avatar">
+                      <img v-if="adminInfo.headimg" :src="baseImgPath + adminInfo.headimg.url" class="avatar">
                       <i v-else class="el-icon-plus avatar-uploader-icon"></i>
                     </el-upload>
-                </li>    
+                </li>
             </ul>
         </div>
     </div>
@@ -35,26 +32,65 @@
 
 <script>
 	import headTop from '../components/headTop'
-    import {mapState} from 'vuex'
     import {baseUrl, baseImgPath} from '@/config/env'
-
+    import {getAdminInfo,getImgById,updateUser} from "../api/getData";
+	import moment from 'moment'
     export default {
         data(){
             return {
                 baseUrl,
                 baseImgPath,
+                adminInfo:{
+                    headimg:{
+                        id: '',
+                        url: '',
+                    }
+                }
             }
         },
     	components: {
     		headTop,
     	},
-        computed: {
-            ...mapState(['adminInfo']),
+        mounted(){
+            this.initDate()
         },
+        // computed: {
+        //     ...mapState(['adminInfo']),
+        // },
         methods: {
+            parseTime (date) {
+                return new moment(date).format('YYYY-MM-DD')
+            },
+            async initDate(){
+                let res = await getAdminInfo()
+                if(res.data.state == 1){
+                    this.adminInfo = res.data.data
+                    // this.adminInfo.user_name = res.data.data.username
+                    // this.adminInfo.create_time = moment(res.data.data.registeTime).format('YYYY-MM-DD')
+                    // this.adminInfo.id = res.data.data.id
+                    let params = new FormData()
+                    params.append('id',res.data.data.headimg)
+                    let img = await getImgById(params)
+                    if(img.data.state == 1)
+                        this.adminInfo.headimg = img.data.data
+                    else
+                        this.adminInfo.headimg = img.data.data
+                    // console.log(this.adminInfo)
+                }
+            },
             uploadImg(res, file) {
-                if (res.status == 1) {
-                    this.adminInfo.avatar = res.image_path;
+                if (res.state == 1) {
+                    this.adminInfo.headimg = res.data;
+                    let params = {
+                        id: this.adminInfo.id,
+                        username: this.adminInfo.username,
+                        password: this.adminInfo.password,
+                        level: this.adminInfo.level,
+                        headimg: this.adminInfo.headimg.id,
+                        registeTime: this.adminInfo.registeTime
+                    }
+                    updateUser(params)
+                    this.$message.success('更换头像成功')
                 }else{
                     this.$message.error('上传图片失败！');
                 }
